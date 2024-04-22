@@ -1,0 +1,39 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="pt-br">
+  <head>
+   <meta charset="utf-8">
+
+    {% block title%}
+    <title>Reserva</title>
+    {% endblock %}
+
+    <link rel="stylesheet" type="text/css" href="{% static 'css/main.css' %}">
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap"
+      rel="stylesheet"
+    />
+    {% block head %}
+    {% endblock  %}
+  </head>
+
+  <body>
+    {% include "navbar.html" %}
+    {% block content %}
+    {% endblock  %}
+
+
+    {% include "rodape.html" %}
+    <script type="text/javascript" src="{% static 'js/main.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/checkout.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/home.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/loja.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/produto.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/scripts.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/slider.js' %}"></script>
+  </body>
+</html>
+

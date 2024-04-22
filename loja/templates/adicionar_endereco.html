@@ -1,0 +1,69 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block content %}
+
+<main class="principal">
+    <section class="conta">
+      <div class="conta__container">
+        <div class="checkout__titulos">
+          <p class="checkout__titulo">Adicione um novo endereço</p>
+        </div>
+
+        <form
+          class="conta__form"
+          action="{% url 'adicionar_endereco' %}"
+          method="post"
+        >
+         {% csrf_token %}
+  
+          <div class="conta__item">
+            <label for="cidade">Cidade</label>
+            <input name="cidade" type="text" 
+            placeholder="Cidade"/>
+          </div>
+
+          <div class="conta__item">
+            <label for="estado">Estado</label>
+            <input name="estado" type="text" 
+            placeholder="Estado"/>
+          </div>
+
+          <div class="conta__item">
+            <label for="rua">Rua</label>
+            <input name="rua" type="text" 
+            placeholder="Rua"/>
+          </div>
+
+          <div class="conta__item">
+            <label for="numero">Número</label>
+            <input name="numero" type="number" 
+            placeholder="Número"/>
+          </div>
+
+          <div class="conta__item">
+            <label for="complemento">Complemento</label>
+            <input name="complemento" type="text" 
+            placeholder="Complemento"/>
+          </div>
+
+          <div class="conta__item">
+            <label for="cep">CEP</label>
+            <input name="cep" type="number" 
+            placeholder="CEP"/>
+          </div>
+
+          <button class="subtotal__botao" type="submit">
+            Adicionar endereço
+          </button>
+        </form>
+        <a href="{% url 'checkout' %}">Retornar para a compra</a>
+
+      </div>
+
+    </section>
+</main>
+
+
+
+{% endblock %}

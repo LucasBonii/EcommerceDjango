@@ -1,0 +1,66 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block head %}
+<style>
+    .mensagem-erro {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100px; /* Altura da caixa de mensagem */
+        margin: 0 auto; /* Centraliza horizontalmente */
+        border: 1px solid; /* Estilo da borda */
+        padding: 10px; /* Espaçamento interno */
+        color: #000000; /* Cor do texto */
+        width: 77%; /* Largura da caixa de mensagem */
+    }
+</style>
+{% endblock head %}
+
+{% block content %}
+
+<main class="principal">
+    <section class="conta">
+        {% if erro %}
+            <div class="mensagem-erro">
+                <p>Credenciais inválidas</p>
+            </div>
+         {% endif %}
+      <div class="conta__container">
+        <div class="checkout__titulos">
+          <p class="checkout__titulo">Faça Login</p>
+        </div>
+
+        <form
+          class="conta__form"
+          action="{% url 'fazer_login' %}"
+          method="post"
+        >
+         {% csrf_token %}
+  
+          <div class="conta__item">
+            <label for="email">E-mail</label>
+            <input name="email" type="email" 
+            placeholder="Email"/>
+          </div>
+
+          <div class="conta__item ">
+            <label for="senha">Senha</label>
+            <input name="senha" type="password"
+            placeholder="Senha"/>
+          </div>
+
+          <button class="subtotal__botao" type="submit">
+            Fazer Login
+          </button>
+        </form>
+        <a href="{% url 'criar_conta' %}">Não tem uma conta? Crie já!</a>
+        <a href="{% url 'password_reset' %}">Esqueci minha senha</a>
+
+      </div>
+
+    </section>
+</main>
+
+
+{% endblock %}

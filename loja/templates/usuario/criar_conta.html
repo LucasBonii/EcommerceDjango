@@ -1,0 +1,84 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block head %}
+<style>
+    .mensagem-erro {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100px; /* Altura da caixa de mensagem */
+        margin: 0 auto; /* Centraliza horizontalmente */
+        border: 1px solid; /* Estilo da borda */
+        padding: 10px; /* Espaçamento interno */
+        color: #000000; /* Cor do texto */
+        width: 77%; /* Largura da caixa de mensagem */
+    }
+</style>
+{% endblock head %}
+
+{% block content %}
+
+<main class="principal">
+    <section class="conta">
+        {% if erro %}
+            <div class="mensagem-erro">
+                {% if erro == "preenchimento" %}
+                <p>Preencha todas as informações do formulário corretamente para criar uma conta.</p>
+                {% endif %}
+
+                {% if erro == "email_invalido" %}
+                <p>Este e-mail é inválido, tente novamente com outro e-mail.</p>
+                {% endif %}
+
+                {% if erro == "usuario_existente" %}
+                <p>Já existe um usuário com esse e-mail, <a href="{% url 'fazer_login' %}">faça login.</a></p>
+                {% endif %}
+
+                {% if erro == "senhas_diferentes" %}
+                <p>As senhas nao coincidem.</p>
+                {% endif %}
+            </div>
+         {% endif %}
+      <div class="conta__container">
+        <div class="checkout__titulos">
+          <p class="checkout__titulo">Crie sua conta</p>
+        </div>
+
+        <form
+          class="conta__form"
+          action="{% url 'criar_conta' %}"
+          method="post"
+        >
+         {% csrf_token %}
+  
+          <div class="conta__item conta__item--email">
+            <label for="email">E-mail</label>
+            <input name="email" type="email" 
+            placeholder="Email"/>
+          </div>
+
+          <div class="conta__item ">
+            <label for="senha">Senha</label>
+            <input name="senha" type="password"
+            placeholder="Senha"/>
+          </div>
+
+          <div class="conta__item ">
+            <label for="confirmacao_senha">Confirmação da Senha</label>
+            <input name="confirmacao_senha" type="password"
+            placeholder="Senha"/>
+          </div>
+
+          <button class="subtotal__botao" type="submit">
+            Criar Conta
+          </button>
+        </form>
+        <a href="{% url 'fazer_login' %}">Já tem uma conta? Faça login</a>
+
+      </div>
+
+    </section>
+</main>
+
+{% endblock %}

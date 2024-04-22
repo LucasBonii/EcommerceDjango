@@ -1,0 +1,117 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block head %}
+<style>
+    .mensagem-erro {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100px; /* Altura da caixa de mensagem */
+        margin: 0 auto; /* Centraliza horizontalmente */
+        border: 1px solid; /* Estilo da borda */
+        padding: 10px; /* Espaçamento interno */
+        color: #000000; /* Cor do texto */
+        width: 77%; /* Largura da caixa de mensagem */
+    }
+</style>
+{% endblock head %}
+
+{% block content %}
+
+<main class="principal">
+    <section class="conta">
+      {% if messages or erro %}
+        <div class="mensagem-erro">
+            {% for msg in messages %}
+            <p>{{ msg }}</p>
+            {% endfor %}
+
+            {% if erro == "senha_incorreta" %}
+            <p>Sua senha está incorreta.</p>
+            {% endif %}
+
+            {% if erro == "email_existente" %}
+            <p>Email já está em uso.</p>
+            {% endif %}
+
+            {% if erro == "senhas_diferentes" %}
+            <p>As senhas nao coincidem.</p>
+            {% endif %}
+
+            {% if erro == "preenchimento" %}
+            <p>Formulário inválido.</p>
+            {% endif %}
+        </div>
+      {% endif %}
+      <div class="conta__container">
+        <div class="checkout__titulos">
+          <p class="checkout__titulo">Dados pessoais</p>
+        </div>
+
+        <form
+          class="conta__form"
+          action="{% url 'minha_conta' %}"
+          method="post"
+        >
+         {% csrf_token %}
+          <div class="conta__item">
+            <label for="nome">Nome</label>
+            <input name="nome" type="text" placeholder="Nome Completo" 
+            {% if request.user.cliente.nome %}value="{{ request.user.cliente.nome }}"{% endif %} />
+          </div>
+
+          <div class="conta__item">
+            <label for="telefone">Telefone</label>
+            <input name="telefone" type="number"
+            placeholder="Telefone"  value="{{ request.user.cliente.telefone }}" />
+          </div>
+
+          <div class="conta__item conta__item--email">
+            <label for="email">E-mail</label>
+            <input name="email" type="email" 
+            placeholder="Email" value="{{ request.user.email }}"/>
+          </div>
+
+          <button class="subtotal__botao" type="submit">
+            Salvar alterações
+          </button>
+        </form>
+      </div>
+
+      <div class="conta__container">
+        <div class="checkout__titulos">
+          <p class="checkout__titulo">Alteração de senha</p>
+        </div>
+
+        <form
+          class="conta__form"
+          action="{% url 'minha_conta' %}"
+          method="post"
+        >
+         {% csrf_token %}
+          <div class="conta__item conta__item--email">
+            <label for="senha_atual">Senha Atual</label>
+            <input name="senha_atual" type="password" />
+          </div>
+
+          <div class="conta__item">
+            <label for="nova_senha">Nova Senha</label>
+            <input name="nova_senha" type="password" />
+          </div>
+
+          <div class="conta__item">
+            <label for="nova_senha_confirmacao">Confirme sua Senha</label>
+            <input name="nova_senha_confirmacao" type="number" />
+          </div>
+
+          <button class="subtotal__botao" type="submit">
+            Salvar alterações
+          </button>
+        </form>
+      </div>
+
+    </section>
+</main>
+
+{% endblock %}
